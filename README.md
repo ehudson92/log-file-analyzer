@@ -45,11 +45,13 @@ Example:
 python log_analyzer.py /var/log/auth.log
 ```
 
-### :three: Output Example  
+### :three: Output Screenshot Examples
+
+(images/Test1.png)
 
 ```bash
 [INFO] Log File Analyzer Started...
-[ALERT] '15' Failed login attempts detected from 192.168.1.10
+[ALERT] Failed password for invalid user admin attempts detected.
 [SUMMERY] Analysis Completed: '3' Anomalies Found
 ```
 
