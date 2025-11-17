@@ -4,33 +4,35 @@ from collections import Counter
 def analyze_log(file_path):
     try:
         with open(file_path, 'r') as file:
-            log_data = file.readlines()
-        
-        print("✅ File loaded. First line preview:", log_data[0] if log_data else "Empty file")
-        
-        # ✅ Updated regex to catch IPs at the start of the line
-        ip_pattern = re.compile(r'(\d{1,3}(?:\.\d{1,3}){3})')
-        ips = []
+            logs = file.readlines()
 
-        for line in log_data:
-            match = ip_pattern.search(line)
-            if match:
-                ips.append(match.group(1))
+        ip_pattern = re.compile(r'(\d{1,3}\.){3}\d{1,3}')
+        failed_logins = []
+        ip_addresses = []
 
-        if ips:
-            ip_counts = Counter(ips)
-            print("\nTop 5 IP addresses making requests:")
-            for ip, count in ip_counts.most_common(5):
-                print(f"🔹 {ip}: {count} requests")
-        else:
-            print("⚠️ No IP addresses found in the log file.")
+        for line in logs:
+            ip_match = ip_pattern.search(line)
+            if ip_match:
+                ip = ip_match.group()
+                ip_addresses.append(ip)
+                if "failed" in line.lower() or "unauthorized" in line.lower():
+                    failed_logins.append(ip)
+
+        print("\n===== LOG ANALYSIS REPORT =====")
+        print(f"Total log entries: {len(logs)}")
+        print(f"Unique IPs detected: {len(set(ip_addresses))}")
+        print(f"Failed login attempts: {len(failed_logins)}")
+
+        if failed_logins:
+            print("\nTop 5 IPs with failed attempts:")
+            for ip, count in Counter(failed_logins).most_common(5):
+                print(f" - {ip}: {count} times")
 
     except FileNotFoundError:
-        print("❌ File not found. Please check your path.")
+        print(f"Error: File '{file_path}' not found.")
     except Exception as e:
-        print(f"⚠️ Error: {e}")
+        print(f"Unexpected error: {e}")
 
-# 🧪 Main program
 if __name__ == "__main__":
-    file_path = input("Enter path to your log file (e.g., access.log): ").strip()
-    analyze_log(file_path)
+    log_file = input("Enter path to log file (e.g., system.log): ").strip()
+    analyze_log(log_file)

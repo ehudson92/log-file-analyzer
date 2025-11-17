@@ -66,9 +66,8 @@ Do not use it on any system without proper authorization. Unauthorized use may v
 
 ## :bust_in_silhouette: Author
 
-Edward Hudson Jr.
-
-Cybersecurity & Information Technology Graduate
+**Edward Hudson Jr.**  
+Aspiring Cybersecurity & IT Professional | Building Experience Through Hands-On Projects and Labs.
 
 #### LinkedIn <https://www.linkedin.com/in/edwardhudsonjrofficial>
 
